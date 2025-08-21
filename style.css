@@ -1,3 +1,21 @@
+:root {
+    /* Colors - Defined here to allow quick changing of the color palette from one place, without having to go through the following rulesets. */
+
+    /* Brand Colors */
+    --brand-color: #1992D4;                         /* Background color for sidebar, header buttons */
+    --brand-color-complementary: #F0B429;           /* Background color for card side padding */
+
+    --brand-text-color: #FFFFFF;                    /* Text color for all elements whose background color is `--brand-color` */
+
+    /* Text Colors */
+    --title-color: #000000;                         /* Text color for title text (all text in black in the design file) */ 
+    --body-color: #636363;                          /* Text color for body text (all text in grey in the design file) */
+
+    /* Background Colors */
+    --bg-color: #E2E8F0;                            /* Background color for header search input, main content */
+    --bg-color-alternate: #FFFFFF;                  /* Background color for header, card */
+}
+
 body {
     display: grid;
 
@@ -8,18 +26,21 @@ body {
     height: 100vh;
 
     margin: 0;
+
+    background-color: var(--bg-color);
 }
 
 .sidebar {
-    background-color: #1992D4;
+    background-color: var(--brand-color);
 
     grid-row: 1 / span 2;
 }
 
 .header {
-    background-color: #FFFFFF;
+    background-color: var(--bg-color-alternate);
 }
 
 .main-content {
-    background-color: #E2E8F0;
+    /* Unneeded, but added for clarity. */
+    background-color: inherit;
 }
