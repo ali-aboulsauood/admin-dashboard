@@ -1,3 +1,31 @@
+/* Roboto Regular */
+@font-face {
+    font-family: 'Roboto';
+    
+    src: local('Roboto Regular'), local('Roboto-Regular'),
+        url('assets/fonts/roboto/Roboto-Regular.woff2') format('woff2'),
+        url('assets/fonts/roboto/Roboto-Regular.woff') format('woff');
+    
+    font-weight: normal;
+    font-style: normal;
+    
+    font-display: swap;
+}
+
+/* Roboto Bold */
+@font-face {
+    font-family: 'Roboto';
+
+    src: local('Roboto Bold'), local('Roboto-Bold'),
+        url('assets/fonts/roboto/Roboto-Bold.woff2') format('woff2'),
+        url('assets/fonts/roboto/Roboto-Bold.woff') format('woff');
+    
+    font-weight: bold;
+    font-style: normal;
+    
+    font-display: swap;
+}
+
 :root {
     /* Colors - Defined here to allow quick changing of the color palette from one place, without having to go through the following rulesets. */
 
@@ -10,12 +38,22 @@
     /* Text Colors */
     --title-color: #000000;                         /* Text color for title text (all text in black in the design file) and header icons */ 
     --body-color: #636363;                          /* Text color for body text (all text in grey in the design file) */
-    
+
     --action-color: #333333;                        /* Text color for card icons (icons for project actions) */
 
     /* Background Colors */
     --bg-color: #E2E8F0;                            /* Background color for header search input, main content */
     --bg-color-alternate: #FFFFFF;                  /* Background color for header, card */
+
+    /* Fonts */
+
+    /* 
+    A CSS variable for the system font stack, used as a fallback. 
+    
+    Link: https://css-tricks.com/snippets/css/system-font-stack/#aa-related:~:text=%2D%2Dsystem%2Dui%3A%20system%2Dui%2C%20%22Segoe%20UI%22%2C%20Roboto%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B
+    */
+    --system-font-stack: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
 }
 
 body {
@@ -30,6 +68,14 @@ body {
     margin: 0;
 
     background-color: var(--bg-color);
+
+    font-family: 'Roboto', var(--system-font-stack);
+
+    font-weight: bold;
+}
+
+p {
+    font-weight: normal;
 }
 
 .sidebar {
