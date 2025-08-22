@@ -8,8 +8,10 @@
     --brand-text-color: #FFFFFF;                    /* Text color for all elements whose background color is `--brand-color` */
 
     /* Text Colors */
-    --title-color: #000000;                         /* Text color for title text (all text in black in the design file) */ 
+    --title-color: #000000;                         /* Text color for title text (all text in black in the design file) and header icons */ 
     --body-color: #636363;                          /* Text color for body text (all text in grey in the design file) */
+    
+    --action-color: #333333;                        /* Text color for card icons (icons for project actions) */
 
     /* Background Colors */
     --bg-color: #E2E8F0;                            /* Background color for header search input, main content */
