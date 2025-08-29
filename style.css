@@ -1,10 +1,12 @@
-/* Roboto Regular */
+/* Fonts */
+
+/* Roboto Regular - font for paragraphs */
 @font-face {
     font-family: 'Roboto';
     
-    src: local('Roboto Regular'), local('Roboto-Regular'),
-        url('assets/fonts/roboto/Roboto-Regular.woff2') format('woff2'),
-        url('assets/fonts/roboto/Roboto-Regular.woff') format('woff');
+    src:    local('Roboto Regular'), local('Roboto-Regular'), 
+            url('assets/fonts/roboto/Roboto-Regular.woff2') format('woff2'),
+            url('assets/fonts/roboto/Roboto-Regular.woff') format('woff');
     
     font-weight: normal;
     font-style: normal;
@@ -12,13 +14,13 @@
     font-display: swap;
 }
 
-/* Roboto Bold */
+/* Roboto Bold - font for entire page, except paragraphs */
 @font-face {
     font-family: 'Roboto';
-
-    src: local('Roboto Bold'), local('Roboto-Bold'),
-        url('assets/fonts/roboto/Roboto-Bold.woff2') format('woff2'),
-        url('assets/fonts/roboto/Roboto-Bold.woff') format('woff');
+    
+    src:    local('Roboto Bold'), local('Roboto-Bold'), 
+            url('assets/fonts/roboto/Roboto-Bold.woff2') format('woff2'),
+            url('assets/fonts/roboto/Roboto-Bold.woff') format('woff');
     
     font-weight: bold;
     font-style: normal;
@@ -26,69 +28,767 @@
     font-display: swap;
 }
 
+/* CSS Variables */
 :root {
-    /* Colors - Defined here to allow quick changing of the color palette from one place, without having to go through the following rulesets. */
+    /* (A) Colors - Defined here to allow quick changing of the color palette from one place, without having to go through the following rulesets. */
+    
+    /* (A - 1) Brand Colors */
 
-    /* Brand Colors */
-    --brand-color: #1992D4;                         /* Background color for sidebar, header buttons */
-    --brand-color-complementary: #F0B429;           /* Background color for card side padding */
+    --brand-color: #1992d4;
+    --brand-color-complementary: #f0b429;
+    
+    --brand-color-transparent-1: rgb(25, 146, 212, 0.8);
+    --brand-color-complementary-transparent-1: rgb(240, 180, 41, 0.5);
 
-    --brand-text-color: #FFFFFF;                    /* Text color for all elements whose background color is `--brand-color` */
+    --brand-color-transparent-2: rgb(25, 146, 212, 0.4);
+    --brand-color-complementary-transparent-2: rgb(240, 180, 41, 0.5);
+    
+    --brand-text-color: #FFFFFF;
+    --brand-text-color-complementary: #000000;
+    
+    /* (A - 2) Text Colors */
 
-    /* Text Colors */
-    --title-color: #000000;                         /* Text color for title text (all text in black in the design file) and header icons */ 
-    --body-color: #636363;                          /* Text color for body text (all text in grey in the design file) */
+    --title-color: #000000;
+    --body-color: #636363;
+    
+    --action-button-color: #333333;
+    
+    /* (A - 3) Background Colors */
 
-    --action-color: #333333;                        /* Text color for card icons (icons for project actions) */
+    --bg-color: #E2E8F0;
+    --bg-color-alternate: #FFFFFF;
 
-    /* Background Colors */
-    --bg-color: #E2E8F0;                            /* Background color for header search input, main content */
-    --bg-color-alternate: #FFFFFF;                  /* Background color for header, card */
+    /* (A - 4) Shadow Colors */
 
-    /* Fonts */
+    --shadow-color: #000000;
+    
+    /* (B) Fonts */
 
     /* 
-    A CSS variable for the system font stack, used as a fallback. 
-    
-    Link: https://css-tricks.com/snippets/css/system-font-stack/#aa-related:~:text=%2D%2Dsystem%2Dui%3A%20system%2Dui%2C%20%22Segoe%20UI%22%2C%20Roboto%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B
+    CSS Tricks' system font stack
+
+    Last updated: October 26, 2022
+    Source: https://css-tricks.com/snippets/css/system-font-stack/
     */
     --system-font-stack: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    
+    /* (C) Other */
 
+    /* Also needed for the hover effect for sidebar links. */
+    --navigation-ul-padding: 32px;
+    
+    /* Used as the top padding for the header section as well, in order to vertically align its topmost row with the branding on the sidebar. */
+    --branding-padding-top-left: 20px;
+    
+    /* Border radii for the search input and header buttons. */
+    --search-and-button-border-radius-horizontal: 18px;
+    --search-and-button-border-radius-vertical: 18px;
+}
+
+/* General styles */
+
+* {
+    box-sizing: border-box;
+    
+    margin: 0;
+    padding: 0;
+}
+
+*:focus {
+    border: none;
+    outline: none;
+}
+
+*::selection {
+    background-color: var(--brand-color-complementary);
+    color: var(--brand-text-color);
 }
 
 body {
     display: grid;
-
-    grid-template-columns: 1fr 3.75fr; 
-    grid-template-rows: 1fr 4.78fr;
-
-    width: 100vw;
-    height: 100vh;
-
-    margin: 0;
-
+    grid-template-columns: 1fr 4.5fr; 
+    grid-template-rows: 1fr 4fr;
+    
+    width: 100%;
+    max-height: 100%;
+        
+    /* Text color and font weight are overridden where necessary. */
+    
     background-color: var(--bg-color);
-
+    color: var(--title-color);
+    
     font-family: 'Roboto', var(--system-font-stack);
-
+    
     font-weight: bold;
 }
 
+a {
+    text-decoration: none;
+    
+    color: var(--title-color);
+}
+
+button {
+    border: none;
+    outline: none;
+    
+    background: transparent;
+    
+    cursor: pointer;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+h4 { font-size: 1rem }
+h5 { font-size: 0.85rem }
+h6 { font-size: 0.7rem }
+
 p {
+    color: var(--body-color);
+    
     font-weight: normal;
 }
 
-.sidebar {
-    background-color: var(--brand-color);
+/* SVG styles */
 
-    grid-row: 1 / span 2;
+svg {
+    --min-width-and-height: 24px;
+    --max-width-and-height: 100%;
+    
+    min-width: var(--min-width-and-height);
+    min-height: var(--min-width-and-height);
+    
+    max-width: var(--max-width-and-height);
+    max-height: var(--max-width-and-height);
 }
+
+.sidebar svg {
+    --width-and-height: 50%;
+    
+    width: var(--width-and-height);
+    height: var(--width-and-height);
+}
+
+.brand-logo > svg {
+    --width-and-height: 100%;
+    
+    width: var(--width-and-height);
+    height: var(--width-and-height);
+}
+
+.header .icon > svg, .feed svg {
+    --width-and-height: 27.2px;
+    
+    width: var(--width-and-height);
+    height: var(--width-and-height);
+}
+
+.header-bottom-left .profile-picture, .profile-picture > svg {
+    --profile-min-width-and-height: 64px;
+    --profile-max-width-and-height: calc(var(--profile-min-width-and-height) * 1.5);
+
+    min-width: var(--profile-min-width-and-height);
+    min-height: var(--profile-min-width-and-height);
+    
+    max-width: var(--profile-max-width-and-height);
+    max-height: var(--profile-max-width-and-height);
+}
+
+ul {
+    display: grid;
+    
+    list-style-type: none;
+}
+
+/* Interaction styles */
+
+a:hover, a:focus-visible {
+    color: var(--brand-color);
+
+    text-decoration: underline;
+}
+
+a:focus-visible {
+    text-decoration: underline !important;
+}
+
+a:active {
+    color: var(--brand-color-complementary);
+}
+
+.sidebar {
+    /* Prevents the hover background color from overflowing into the header. */
+    overflow: hidden;
+}
+
+.sidebar a {
+    position: relative;
+}
+
+.sidebar a:hover, .sidebar a:focus-visible {
+    background-color: var(--brand-text-color);
+    color: var(--brand-color);
+
+    text-decoration: none;
+
+    /* Using a CSS variable for the top and bottom padding causes them not to render correctly for some reason. */
+
+    margin: -12px calc(-1 * var(--navigation-ul-padding));
+    padding: 12px var(--navigation-ul-padding);
+
+    width: calc(100% + var(--navigation-ul-padding) * 2);
+}
+
+.sidebar a:active {
+    background-color: inherit;
+    color: inherit;
+}
+
+button > svg:hover, button > svg:focus-visible {
+    color: var(--brand-color);
+}
+
+button > svg:active {
+    color: var(--brand-color-complementary);
+}
+
+.profile:hover, .profile:focus-visible {
+    background-color: var(--brand-color-transparent-1);
+}
+
+.card:hover, .card:focus-visible {
+    outline: 2px solid var(--brand-color);
+
+    border-left: var(--card-and-list-border-width-and-radius) solid var(--brand-color);
+}
+
+.feed:hover, .feed:focus-visible {
+    background-color: var(--brand-color-transparent-2);
+}
+
+.profile:hover, .profile:focus-visible, .feed:hover, .feed:focus-visible {    
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+    border-radius: 16px;
+    
+    text-decoration: none;
+}
+
+.profile:hover *, .profile:focus-visible *, .feed:hover *, .feed:focus-visible * {
+    color: var(--brand-text-color);
+}
+
+.profile:active {
+    background-color: var(--brand-color-complementary-transparent-1);
+}
+
+.feed:active {
+    background-color: var(--brand-color-complementary-transparent-2);
+}
+
+.header-button:hover, .header-button:focus-visible {
+    border: 2px solid var(--brand-color);
+    
+    background-color: var(--brand-text-color);
+    color: var(--brand-color);
+}
+
+.header-button:active {    
+    border: none;
+    
+    background-color: var(--brand-color-complementary);
+    color: var(--brand-text-color);
+}
+
+/* Search Bar styles - moved here to avoid cluttering header styles */
+
+#search-bar {
+    /* Removes OS-level styling from the search input, which prevents setting the height and font size in Safari 16 and older. */
+    appearance: none;
+    
+    --height: 32px;
+
+    height: var(--height);
+    
+    background-color: var(--bg-color);
+    
+    --text-color: var(--title-color);
+    
+    color: var(--text-color);
+    
+    /* TODO: Create a custom caret for the search bar. */
+    /* TODO: Override the default clear button of the search input. */
+    
+    /* Font family and size explicitly set as search input do not inherit parent styles by default. */
+    
+    font-family: inherit;
+    font-size: inherit;
+    
+    border: none;
+    
+    /* Covers the background color set by WebKit and Mozilla browsers on autocompletion. */
+    --autocomplete-box-shadow: 0 0 0 var(--height) var(--bg-color) inset !important;
+}
+
+#search-bar, .bottom .right > button {
+    -webkit-border-radius: var(--search-and-button-border-radius-horizontal) / var(--search-and-button-border-radius-vertical);
+    -moz-border-radius: var(--search-and-button-border-radius-horizontal) / var(--search-and-button-border-radius-vertical);
+    -ms-border-radius: var(--search-and-button-border-radius-horizontal) / var(--search-and-button-border-radius-vertical);
+    -o-border-radius: var(--search-and-button-border-radius-horizontal) / var(--search-and-button-border-radius-vertical);
+    border-radius: var(--search-and-button-border-radius-horizontal) / var(--search-and-button-border-radius-vertical);
+    
+    padding: var(--search-and-button-border-radius-horizontal) var(--search-and-button-border-radius-vertical);
+}
+
+/* 
+Makes the clear button of the search input disappear on focus loss in Safari.
+#search-bar:not(:focus, :active)::-webkit-search-cancel-button {
+    display: none;
+}
+*/
+
+/* Removes the clear button of the search input from WebKit browsers. */
+#search-bar::-webkit-search-cancel-button {
+    display: none;
+}
+
+#search-bar::placeholder {
+    color: var(--body-color)
+}
+
+#search-bar:hover, #search-bar:focus, #search-bar:focus-visible {    
+    outline: 2px solid var(--brand-color);
+}
+
+#search-bar:focus {
+    --outline-and-caret-color: var(--brand-color-complementary);
+
+    outline-color: var(--outline-and-caret-color);
+    caret-color: var(--outline-and-caret-color);
+}
+
+#search-bar::selection {
+    color: var(--brand-text-color);
+    background-color: var(--outline-and-caret-color);
+}
+
+/* Covers the background color set by WebKit and Mozilla browsers on autocompletion. */
+
+#search-bar:-webkit-autofill, #search-bar:-webkit-autofill:hover, #search-bar:-webkit-autofill:focus, #search-bar:-webkit-autofill:active {
+    -webkit-box-shadow: var(--autocomplete-box-shadow);
+    
+    /* Required to override the text color set by WebKit browsers on autocompletion. */
+    -webkit-text-fill-color: var(--text-color) !important;
+}
+
+#search-bar:-moz-autofill, #search-bar:-moz-autofill:hover, #search-bar:-moz-autofill:focus, #search-bar:-moz-autofill:active {
+    box-shadow: var(--autocomplete-box-shadow);
+}
+
+/* Utility classes for text */
+
+.capitalized, .first-letter-capitalized::first-letter {
+    text-transform: capitalize;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+/* (A) Sidebar styles */
+
+.sidebar {
+    grid-row: span 2;
+    
+    display: grid;
+    
+    /* Assigns the first grid row the exact height of its content, and the second grid row the entire remaining height. */
+    grid-template-rows: auto 1fr;
+    
+    row-gap: 60px;
+    
+    background-color: var(--brand-color);
+    color: var(--brand-text-color);
+}
+
+.sidebar * {
+    color: inherit;
+}
+
+.sidebar a {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    
+    align-items: center;
+    
+    column-gap: 1.6px;
+    
+    align-items: center;
+    
+    color: inherit;
+    
+    font-size: 1.5rem;
+}
+
+.sidebar .icon {
+    display: grid;
+    align-items: center;
+}
+
+/* (A - 1) Branding styles */
+
+.branding {
+    padding-top: var(--branding-padding-top-left);
+    padding-left: var(--branding-padding-top-left);
+}
+
+.branding > a {
+    column-gap: 1.1rem;
+}
+
+/* (A - 2) Navigation styles */
+
+.navigation {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    
+    row-gap: 76px;
+    
+    padding-left: 32px;
+}
+
+.navigation-section {
+    grid-template-rows: repeat(auto-fit, auto);
+    
+    row-gap: 27.2px;
+}
+
+/* (B) Header styles */
 
 .header {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    
+    row-gap: 16px;
+    
+    --padding-left: 32px;
+    
+    /* Makes the first header row vertically align with the logo on the sidebar. */
+    padding: calc(var(--branding-padding-top-left) / 2) var(--padding-left);
+    padding-right: calc(2 * var(--padding-left));
+    
     background-color: var(--bg-color-alternate);
+
+    box-shadow: 4px 4px 0px var(--shadow-color);
 }
 
+.header > * {
+    --first-column-percentage: 75%;
+    
+    display: grid;
+    
+    /* Column widths set as percentages to ensure the two left sub-sections of the top and bottom sections start and end at the same vertical line. */
+    grid-template-columns: var(--first-column-percentage) calc(100% - var(--first-column-percentage));
+    
+    align-items: center;
+}
+
+.header .icon {
+    display: grid;
+    place-items: center;                /* Shorthand for `align-items` and `justify-items` */
+    
+    color: var(--title-color);
+}
+
+/* (B - 1) Top row styles */
+
+.search-form {
+    display: grid;
+    grid-template-columns: max-content 0.98fr;
+    
+    align-items: center;
+    
+    column-gap: 16px;
+}
+
+.search-form > label {
+    display: none;
+    
+    /* In case you desire for the label to be displayed. */
+    color: var(--title-color);
+}
+
+.header-right-section {
+    /* The right sub-sections of the two header sections have an extra horizontal space that their grids do not span. */
+    justify-content: end;
+}
+
+.header-top-right {
+    display: grid;
+    grid-template-columns: min-content max-content;
+    
+    /* The gap to be applied between the notifications and profile buttons, and between the child elements of the profile button. */
+    --column-gap: 16px;
+    
+    column-gap: var(--column-gap);
+}
+
+.header-top-right > * {
+    column-gap: var(--column-gap);
+}
+
+.profile {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+}
+
+.top-profile-name {
+    font-size: 1.2rem;
+    
+    margin-right: 16px;
+}
+
+/* (B - 2) Bottom row styles */
+
+.header-bottom-left {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    
+    align-items: center;
+    
+    column-gap: 16px;
+}
+
+.header-bottom-left .profile-picture {
+    display: grid;    
+    align-items: center;
+    
+    width: var(--profile-max-width-and-height);
+    height: var(--profile-max-width-and-height);
+}
+
+.profile-greeting {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    
+    gap: 6px;
+}
+
+.greeting {
+    font-size: 0.95rem;
+}
+
+.header-user-name {
+    color: inherit;
+}
+
+.header-bottom-right {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    
+    gap: 27px;
+}
+
+.header-button {
+    display: grid;
+    place-content: center;
+
+    width: 6rem;
+    height: 2.45rem;
+
+    background-color: var(--brand-color);
+    color: var(--brand-text-color);
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    padding: 0;
+
+    border-radius: var(--search-and-button-border-radius-horizontal);
+    -webkit-border-radius: var(--search-and-button-border-radius-horizontal);
+    -moz-border-radius: var(--search-and-button-border-radius-horizontal);
+    -ms-border-radius: var(--search-and-button-border-radius-horizontal);
+    -o-border-radius: var(--search-and-button-border-radius-horizontal);
+}
+
+/* (C) Main Content styles */
+
+/* (C - a) Title and Horizontal Rule styles */
+
+.section-title {
+    font-size: 1.35rem;
+    
+    margin-bottom: 16px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+}
+
+.card-title, .article-title {
+    margin-bottom: 4px;
+}
+
+hr {
+    margin: 18px 0;
+    
+    opacity: 35%;
+}
+
+/* (C - b) Layout styles */
+
 .main-content {
+    display: grid;
+    grid-template-rows: 1.05fr 1fr;
+    grid-template-columns: 2.5fr 1fr;
+    
+    gap: 24px 20px;
+    
+    --padding-top: 32px;
+    
+    padding-top: var(--padding-top);
+    padding-bottom: calc(1.875 * var(--padding-top));
+    
+    --padding-left: 16px;
+    
+    padding-left: 16px;
+    padding-right: calc(1.750 * var(--padding-top));
+    
     /* Unneeded, but added for clarity. */
     background-color: inherit;
+    
+    /* Needed for the main content cards and articles and feeds section lists */
+    --card-and-list-border-width-and-radius: 8px;
+}
+
+.main-content-left {
+    grid-row: span 2;
+    
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.card, .article-list, .feed-list {
+    background-color: var(--bg-color-alternate);
+    
+    -webkit-border-radius: var(--card-and-list-border-width-and-radius);
+    -moz-border-radius: var(--card-and-list-border-width-and-radius);
+    -ms-border-radius: var(--card-and-list-border-width-and-radius);
+    -o-border-radius: var(--card-and-list-border-width-and-radius);
+    border-radius: var(--card-and-list-border-width-and-radius);
+}
+
+/* 
+Truncates the card description text at the specified number of lines, to prevent overflow.
+    
+Refer to: https://css-tricks.com/almanac/properties/l/line-clamp/
+*/
+
+.card-description {
+    --max-number-of-lines: 5;
+}
+
+.article-description {
+    --max-number-of-lines: 3;
+}
+
+.card-description, .article-description {
+    display: -webkit-box;
+    
+    -webkit-line-clamp: var(--max-number-of-lines);
+    line-clamp: var(--max-number-of-lines);
+    
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+/* (C - 1) Left column styles */
+
+.card-deck {
+    --column-gap: 24px;
+
+    --min-column-width: calc(50% - var(--column-gap));
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--min-column-width), 1fr));
+    
+    gap: 28px var(--column-gap);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    
+    border-left: var(--card-and-list-border-width-and-radius) solid var(--brand-color-complementary);
+    
+    --padding-left: 16px;
+    --padding-right: calc(1.75 * var(--padding-left));
+    
+    padding: 24px var(--padding-left) var(--padding-right);
+    
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-actions {
+    /* Pushes the action buttons section to the very bottom of the card, which has a bottom padding to push it up again from there. */
+    margin-top: auto;
+    
+    display: grid;
+    grid-auto-flow: column;
+    
+    justify-content: end;
+    
+    column-gap: 28px;
+
+    margin-right: 16px;
+    
+    color: var(--action-button-color);
+}
+
+/* (C - 2) Article List styles */
+
+.article-list, .feed-list {
+    padding: 32px 20px 28px 30px;
+}
+
+/* (C - 3) Trending styles */
+
+.feed-list {
+    padding-top: 20px;
+}
+
+.feed:not(:last-child) {
+    margin-bottom: 4px;
+}
+
+.feed-list a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    
+    align-items: center;
+    
+    column-gap: 16px;
+    
+    font-weight: normal;
+}
+
+.feed-source {
+    display: block;
+
+    margin-bottom: 4px;
 }
